@@ -46,11 +46,11 @@ local function Align(PartToMove,TargetPart,Offset)
     
     AttachmentB.CFrame = Offset
     
-    Position.MaxVelocity = 9e9/2
-    Orientation.MaxTorque = 9e9/2
+    Position.MaxVelocity = 9e9*9e9
+    Orientation.MaxTorque = 9e9*9e9
     
-    Position.MaxForce = 9e9/2
-    Orientation.MaxAngularVelocity = 9e9/2
+    Position.MaxForce = 9e9*9e9
+    Orientation.MaxAngularVelocity = 9e9*9e9
     
     Position.Responsiveness = 200
     Orientation.Responsiveness = 200
@@ -72,7 +72,7 @@ Camera.CameraSubject = Rig.Humanoid
 RunService.Heartbeat:Connect(function()
     for i,v in pairs(Character:GetChildren()) do
         if v:IsA("BasePart") then
-            v.Velocity = Vector3.new(0,30,0)
+            v.Velocity = Vector3.new(0,29,0)
             v.CFrame = v.CFrame
         end
     end

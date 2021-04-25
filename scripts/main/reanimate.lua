@@ -9,6 +9,7 @@ Character.Archivable = true
 
 local Rig = Character:Clone()
 Rig.Parent = Character
+Rig.Name = "64Will64_Rig"
 
 wait()
 

@@ -46,11 +46,11 @@ local function Align(PartToMove,TargetPart,Offset)
     
     AttachmentB.CFrame = Offset
     
-    Position.MaxVelocity = 9e9*9e9
-    Orientation.MaxTorque = 9e9*9e9
+    Position.MaxVelocity = 18^18
+    Orientation.MaxTorque = 18^18
     
-    Position.MaxForce = 9e9*9e9
-    Orientation.MaxAngularVelocity = 9e9*9e9
+    Position.MaxForce = 18^18
+    Orientation.MaxAngularVelocity = 18^18
     
     Position.Responsiveness = 200
     Orientation.Responsiveness = 200
@@ -95,3 +95,15 @@ RunService.Stepped:Connect(function()
 end)
 
 game.Players.LocalPlayer.Character = Rig
+
+Rig.Humanoid.Died:Connect(function()
+    game.Players.LocalPlayer.Character = Character
+    local human2 = Character.Humanoid:Clone()
+    human2.Parent = Character
+    for i,v in pairs(Character:GetChildren()) do
+        if v:IsA("BasePart") then
+            v.Anchored = true
+        end
+    end
+    Character.Humanoid:Destroy()
+end)

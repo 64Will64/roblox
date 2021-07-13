@@ -6,6 +6,13 @@ local RunService = game:GetService("RunService")
 
 Character.Archivable = true
 
+RunService.Stepped:Connect(function()
+        for i,v in pairs(Character:GetChildren()) do
+        if v:IsA("BasePart") then
+            v.CanCollide = false
+        end
+    end
+end)
 
 local Rig = Character:Clone()
 Rig.Parent = Character
@@ -13,15 +20,13 @@ Rig.Name = "64Will64_Rig"
 
 wait()
 
-Character.HumanoidRootPart.RootJoint:Destroy()
-
-Character.HumanoidRootPart:Destroy()
-
-for _, Joints in next, Character.Torso:GetChildren() do
-    if Joints:IsA("Motor6D") and Joints.Name ~= "Neck" then
-        Joints:Destroy()
+RunService.Stepped:Connect(function()
+        for i,v in pairs(Rig:GetChildren()) do
+        if v:IsA("BasePart") then
+            v.CanCollide = false
+        end
     end
-end
+end)
 
 for _, RigLimbs in next, Rig:GetDescendants() do
     if RigLimbs:IsA("BasePart") then
@@ -35,6 +40,16 @@ for _, RigHats in next, Rig:GetDescendants() do
     end
 end
 
+for i,v in next, Character.Humanoid:GetPlayingAnimationTracks() do
+	v:Stop()
+end
+wait(.1)
+Character.Animate.Disabled = true
+
+Character.HumanoidRootPart.RootJoint:Destroy()
+
+Character.HumanoidRootPart:Destroy()
+
 Rig.Head.face:Destroy()
 
 local function Align(PartToMove,TargetPart,Offset)
@@ -46,11 +61,11 @@ local function Align(PartToMove,TargetPart,Offset)
     
     AttachmentB.CFrame = Offset
     
-    Position.MaxVelocity = 18^18
-    Orientation.MaxTorque = 18^18
+    Position.MaxVelocity = 30^11
+    Orientation.MaxTorque = 30^11
     
-    Position.MaxForce = 18^18
-    Orientation.MaxAngularVelocity = 18^18
+    Position.MaxForce = 30^11
+    Orientation.MaxAngularVelocity = 30^11
     
     Position.Responsiveness = 200
     Orientation.Responsiveness = 200
@@ -70,29 +85,30 @@ Align(Character["Left Leg"],Rig["Left Leg"], CFrame.new(0,0,0))
 Camera.CameraSubject = Rig.Humanoid
 
 RunService.Heartbeat:Connect(function()
-    for i,v in pairs(Character:GetChildren()) do
-        if v:IsA("BasePart") then
-            v.Velocity = Vector3.new(0,29,0)
-            v.CFrame = v.CFrame
-        end
-    end
-end)
-
-Character.Humanoid.AnimationPlayed:connect(function(anim)
-	anim:Stop()
-end)
-
-for i,v in pairs(Character.Humanoid:GetPlayingAnimationTracks()) do
-	v:AdjustSpeed(0)
-end
-
-RunService.Stepped:Connect(function()
+    setsimulationradius(9e9^math.huge,9e9^math.huge)
+    settings().Physics.AllowSleep = false
+    if Rig.Humanoid.MoveDirection == Vector3.new(0,0,0) then
         for i,v in pairs(Character:GetChildren()) do
-        if v:IsA("BasePart") then
-            v.CanCollide = false
+            if v:IsA("BasePart") then
+                v.Velocity = Vector3.new(15.69, 15.69, 15.69)
+                v.RotVelocity = Vector3.new(1,0,0)
+            end
+        end
+    else
+        for i,v in pairs(Character:GetChildren()) do
+            if v:IsA("BasePart") then
+                v.Velocity = Vector3.new(30.69,0,0)
+                v.CFrame = v.CFrame
+            end
         end
     end
 end)
+
+for _, Joints in next, Character.Torso:GetChildren() do
+    if Joints:IsA("Motor6D") and Joints.Name ~= "Neck" then
+        Joints:Destroy()
+    end
+end
 
 game.Players.LocalPlayer.Character = Rig
 

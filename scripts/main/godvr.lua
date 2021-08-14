@@ -30,7 +30,6 @@ __   ___ __    __ _ _ __  _   ___      _| |__   ___ _ __ ___
 spawn(function()
 	while true do
 		settings().Physics.AllowSleep = false
-		setsimulationradius(math.huge*math.huge,math.huge*math.huge)
 		game:GetService("RunService").Heartbeat:wait()
 	end
 end)

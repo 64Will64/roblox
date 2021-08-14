@@ -85,7 +85,6 @@ Align(Character["Left Leg"],Rig["Left Leg"], CFrame.new(0,0,0))
 Camera.CameraSubject = Rig.Humanoid
 
 RunService.Heartbeat:Connect(function()
-    setsimulationradius(9e9^math.huge,9e9^math.huge)
     settings().Physics.AllowSleep = false
     if Rig.Humanoid.MoveDirection == Vector3.new(0,0,0) then
         for i,v in pairs(Character:GetChildren()) do
